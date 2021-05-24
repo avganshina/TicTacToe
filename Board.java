@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -41,8 +42,6 @@ public class Board extends JFrame
 		g.setColor(Color.BLACK);
 		Font font = new Font("Verdana", Font.BOLD, 40);
 		g.setFont(font);
-		label = new JLabel("  ");
-		this.add(label, BorderLayout.PAGE_START);
 		
 		for (int i = 0; i < 4; i++) {	         
         	g.drawLine(i * 100, 0, i * 100, 300);
@@ -75,13 +74,7 @@ public class Board extends JFrame
 	            }
 	         }
          
-          if (status == GameStatus.nonwin) {
-             label.setText("Nobody Won!");
-          } else if (status == GameStatus.xwin) {
-             label.setText("RED X WON!");
-          } else if (status== GameStatus.owin) {
-             label.setText("BLUE O WON!");
-          }
+          
          
     }
 	
@@ -139,12 +132,13 @@ public class Board extends JFrame
 			@Override
 	         public void mouseClicked(MouseEvent e) {
 				System.out.printf("Mouse cliked at (%d, %d)\n", e.getX(), e.getY());
-				int row = (e.getY()-100)/100;
+				int row = (e.getY()-50)/100;
 				int col = e.getX()/100;
 				
 				if (status == GameStatus.on) {
 					if (board[row][col] == Symbol.None){
 						board[row][col] = player;
+						repaint();
 						check(player, row, col); 
 						if (player == Symbol.x)
 		                	  player = Symbol.o;
@@ -190,6 +184,17 @@ public class Board extends JFrame
 		} else if(gameover(ox, r, c) == 2) {
 			status = GameStatus.nonwin;
 		}
+		
+		if (status == GameStatus.nonwin) {
+      	  JOptionPane.showMessageDialog(this, "Nobody Won!","", JOptionPane.INFORMATION_MESSAGE);
+      	  System.exit(0);
+        } else if (status == GameStatus.xwin) {
+      	  JOptionPane.showMessageDialog(this, "Red X Won!","", JOptionPane.INFORMATION_MESSAGE);
+      	  System.exit(0);
+        } else if (status== GameStatus.owin) {
+      	  JOptionPane.showMessageDialog(this, "Blue O Won!","", JOptionPane.INFORMATION_MESSAGE);
+      	  System.exit(0);
+        }
 	}
 	
 	public int gameover(Symbol ox, int r, int c) {
