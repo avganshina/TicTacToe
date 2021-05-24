@@ -2,7 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,7 +25,6 @@ public class Board extends JFrame
 	public Symbol[][] board; // either o or x or null
 	public Symbol player; // either o or x or null
 	public GameStatus status; // on / nonwin / xwin / owin
-	private JLabel label; // announce who wins
 	
 	public enum GameStatus { // to know when to end the game
 		on, nonwin, xwin, owin
